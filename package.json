@@ -1,0 +1,11 @@
+{
+  "name": "talk-lets-build-suspense",
+  "version": ".0.0",
+  "description": "",
+  "scripts": {
+    "dev:nodejs": "yarn --cwd=./nodejs dev"
+  },
+  "author": "Julian Burr <hello@julianburr.de>",
+  "license": "MIT",
+  "private": true
+}
