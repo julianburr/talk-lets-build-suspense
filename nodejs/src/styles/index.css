@@ -1,0 +1,20 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bungee&family=Poppins:wght@300;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-black text-white font-default font-sans w-full max-w-[500px] px-3 mx-auto py-6 leading-[1.2];
+  }
+
+  h2 {
+    @apply text-[2em] font-bold leading-[1.1];
+  }
+
+  h3 {
+    @apply text-xs uppercase font-bold opacity-50 mt-5 mb-1;
+  }
+}

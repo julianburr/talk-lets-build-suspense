@@ -13,11 +13,7 @@
     "strict": true,
     "noEmit": true,
     "downlevelIteration": true,
-    "incremental": true,
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./*"]
-    }
+    "incremental": true
   },
   "include": ["**/*.ts", "**/*.tsx", "**/*.d.ts"],
   "exclude": ["**/node_modules"],

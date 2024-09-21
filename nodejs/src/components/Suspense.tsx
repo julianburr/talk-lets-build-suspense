@@ -2,10 +2,13 @@ let uid = 0;
 
 export let suspended: { [key: string | number]: Promise<any> } = {};
 
-export function Suspense({ fallback, content }: any) {
+export function Suspense({ fallback, children }: any) {
   let id = uid++;
-  suspended[id] = content;
+  suspended[id] = children;
 
-  const element = fallback();
-  return <div data-stream-id={id}>{element}</div>;
+  return (
+    <div data-suspense-id={id} className="contents">
+      {fallback}
+    </div>
+  );
 }
