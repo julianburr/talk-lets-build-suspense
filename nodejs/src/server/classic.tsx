@@ -7,7 +7,7 @@ import { Details } from "../components/Details.tsx";
 import { Similar } from "../components/Similar.tsx";
 
 export async function handleClassic(req: Request, res: Response) {
-  const id = req.query.id as string;
+  const id = req.params.id as string;
   const app = (
     <>
       <Header />
@@ -17,13 +17,13 @@ export async function handleClassic(req: Request, res: Response) {
     </>
   );
 
-  let content = `<!doctype html><html><head><link href="./index.css" rel="stylesheet"></head><body>`;
+  let content = `<!doctype html><html><head><link href="/index.css" rel="stylesheet"></head><body>`;
 
   const contents = await Promise.all(
     app.props.children.map(async (child: any) => {
       const element = await child.type(child.props);
       return renderToString(element);
-    })
+    }),
   );
 
   content += contents.join("");

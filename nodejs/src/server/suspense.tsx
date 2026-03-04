@@ -8,7 +8,7 @@ import { Similar, SimilarSkeleton } from "../components/Similar.tsx";
 import { Suspense, suspended } from "../components/Suspense.tsx";
 
 export async function handleSuspense(req: Request, res: Response) {
-  const id = req.query.id as string;
+  const id = req.params.id as string;
   const app = (
     <>
       <Header />
@@ -26,7 +26,7 @@ export async function handleSuspense(req: Request, res: Response) {
 
   res.setHeader("Content-Type", "text/html");
   res.write(
-    `<!doctype html><html><head><meta charset="UTF-8"><link href="./index.css" rel="stylesheet"></head><body>`
+    `<!doctype html><html><head><meta charset="UTF-8"><link href="/index.css" rel="stylesheet"></head><body>`,
   );
 
   for (let child of app.props.children) {
@@ -42,7 +42,6 @@ export async function handleSuspense(req: Request, res: Response) {
             const content = this.previousElementSibling.content;
             const id = this.getAttribute('target-id');
             const target = document.querySelector('[data-suspense-id="' + id + '"]');
-
             target.innerHTML = '';
             while (content.firstChild) {
               target.appendChild(content.firstChild);
@@ -59,14 +58,14 @@ export async function handleSuspense(req: Request, res: Response) {
           children.map(async (child: any) => {
             const element = await child.type(child.props);
             return renderToString(element);
-          })
+          }),
         );
         res.write(`
           <template>${contents.join("")}</template>
           <suspense-content target-id="${key}"></suspense-content>
         `);
         delete suspended[key];
-      })
+      }),
     );
   }
 

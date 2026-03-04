@@ -7,22 +7,25 @@ export async function Details({ id }: { id: string }) {
     <div>
       <h3>Cast</h3>
       <div className="flex flex-row gap-2 overflow-auto">
-        {data.cast.edges.map((edge: any) => (
+        {data.cast?.[0]?.credits?.map?.((edge: any) => (
           <div
-            key={edge.node?.name?.id}
+            key={edge.name?.id}
             className="flex flex-col content-start justify-start shrink-0 w-[100px] overflow-hidden grayscale"
           >
             <Image
-              src={edge.node?.name?.primaryImage?.url}
-              alt={edge.node?.name?.nameText?.text}
+              src={edge.name?.primaryImage?.url}
+              alt={edge.name?.nameText?.text}
               className="h-[100px] w-[100px] object-cover rounded-sm"
             />
             <div className="p-1">
               <p className="opacity-50 text-xs truncate">
-                {edge.node?.name?.nameText?.text}
+                {edge.name?.nameText?.text}
               </p>
               <p className="text-sm truncate">
-                {edge.node?.characters?.[0]?.name}
+                {
+                  edge.creditedRoles?.edges?.[0]?.node?.characters?.edges?.[0]
+                    ?.node?.name
+                }
               </p>
             </div>
           </div>

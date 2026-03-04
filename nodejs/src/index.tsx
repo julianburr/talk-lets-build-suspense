@@ -7,9 +7,9 @@ import { handleSuspense } from "./server/suspense.tsx";
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.get("/classic", (req, res) => handleClassic(req, res));
-app.get("/stream", handleStream);
-app.get("/suspense", handleSuspense);
+app.get("/classic/:id", handleClassic);
+app.get("/stream/:id", handleStream);
+app.get("/suspense/:id", handleSuspense);
 
 app.use(express.static("out"));
 

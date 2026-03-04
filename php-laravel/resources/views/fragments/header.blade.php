@@ -1,0 +1,1 @@
+<h1 class="flex font-brand mb-6">Notflix</h1>

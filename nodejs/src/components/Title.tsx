@@ -9,9 +9,13 @@ export async function Title({ id }: { id: string }) {
       <div className="flex flex-col p-2 gap-2 flex-1">
         <h2>{data.name}</h2>
         <p className="opacity-50 text-xs">
-          {data.datePublished.substring(0, 4)} ∙ {data.genre.join(", ")}
+          {data.datePublished?.substring(0, 4)} ∙ {data.genre?.join(", ")}
         </p>
-        <p dangerouslySetInnerHTML={{ __html: data.description?.replaceAll('--', '—') }} />
+        <p
+          dangerouslySetInnerHTML={{
+            __html: data.description?.replaceAll("--", "—"),
+          }}
+        />
       </div>
     </div>
   );

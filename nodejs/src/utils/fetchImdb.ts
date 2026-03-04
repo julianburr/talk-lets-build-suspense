@@ -5,6 +5,8 @@ import { fileURLToPath } from "node:url";
 
 import { sleep } from "./sleep.ts";
 
+const DELAY_ENABLED = true;
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
@@ -26,7 +28,9 @@ export async function fetchImdb({ id, delay }: { id: string; delay: number }) {
     await promises.writeFile(cachePath, JSON.stringify(data));
   }
 
-  await sleep(delay);
+  if (DELAY_ENABLED && delay > 0) {
+    await sleep(delay);
+  }
 
   return data;
 }

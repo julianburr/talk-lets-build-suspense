@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bungee&family=Poppins:wght@300;700&display=swap');
+
+@import 'tailwindcss';
+
+@source "../**/*.blade.php";
+
+@theme {
+    --font-default: 'Poppins', 'Open Sans', sans-serif;
+    --font-brand: 'Bungee', sans-serif;
+    --font-weight-default: 300;
+    --font-weight-bold: 700;
+}
+
+@layer base {
+    body {
+        @apply font-default mx-auto w-full max-w-[500px] bg-black px-3 py-6 leading-[1.2] text-white antialiased;
+    }
+
+    h2 {
+        @apply text-[2em] font-bold leading-[1.1];
+    }
+
+    h3 {
+        @apply mb-1 mt-5 text-xs font-bold uppercase opacity-50;
+    }
+
+    .font-brand {
+        @apply font-brand font-bold;
+    }
+}

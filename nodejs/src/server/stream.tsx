@@ -7,7 +7,7 @@ import { Details } from "../components/Details.tsx";
 import { Similar } from "../components/Similar.tsx";
 
 export async function handleStream(req: Request, res: Response) {
-  const id = req.query.id as string;
+  const id = req.params.id as string;
   const app = (
     <>
       <Header />
@@ -19,7 +19,7 @@ export async function handleStream(req: Request, res: Response) {
 
   res.setHeader("Content-Type", "text/html");
   res.write(
-    `<!doctype html><html><head><meta charset="UTF-8"><link href="./index.css" rel="stylesheet"></head><body>`
+    `<!doctype html><html><head><meta charset="UTF-8"><link href="/index.css" rel="stylesheet"></head><body>`,
   );
 
   for (let child of app.props.children) {
