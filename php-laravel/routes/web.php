@@ -22,8 +22,8 @@ Route::get('/inertia/{id}', function (string $id): mixed {
 Route::get('/classic/{id}', function (string $id): mixed {
     $data = [
         "movie" => Movie::find($id),
-        "movieDetails" => MovieDetail::find($id),
-        "movieSimilar" => MovieSimilar::list($id),
+        "details" => MovieDetail::find($id),
+        "similar" => MovieSimilar::list($id),
     ];
 
     return view('classic', ["data" => $data, "baseUrl" => "/classic/"]);
@@ -52,8 +52,8 @@ Route::get('/suspense/{id}', function (string $id, DeferredRegistry $registry): 
 
         $data = [
             "movie" => $suspense->defer(fn () => Movie::find($id)),
-            "movieDetails" => $suspense->defer(fn () => MovieDetail::find($id)),
-            "movieSimilar" => $suspense->defer(fn () => MovieSimilar::list($id)),
+            "details" => $suspense->defer(fn () => MovieDetail::find($id)),
+            "similar" => $suspense->defer(fn () => MovieSimilar::list($id)),
         ];
 
         $registry->reset();
@@ -61,7 +61,7 @@ Route::get('/suspense/{id}', function (string $id, DeferredRegistry $registry): 
         yield view('suspense-start', ['data' => $data])->render();
 
         $suspense
-            ->onResolve($data, function ($dataKey, $resolvedData) use ($registry) {
+            ->resolve($data, function ($dataKey, $resolvedData, $loadedDataKeys) use ($registry) {
                 $entries = $registry->entriesForDataKey($dataKey);
 
                 array_map(function ($entry) use ($resolvedData) {

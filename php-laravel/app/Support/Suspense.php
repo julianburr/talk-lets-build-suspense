@@ -6,6 +6,8 @@ use Closure;
 
 final class Suspense
 {
+    private array $resolved = [];
+
     private function __construct()
     {
     }
@@ -25,16 +27,23 @@ final class Suspense
      * Run deferred resolvers in the same process so Laravel facades/container are available.
      *
      * @param array<string, Deferred> $deferred
-     * @param callable(string $key, mixed $result): void $then
+     * @param callable(string $key, mixed $result, array $resolvedKeys): void $then
      */
-    public function onResolve(array $deferred, callable $then): self
+    public function resolve(array $deferred, callable $then): self
     {
         foreach ($deferred as $key => $d) {
+            $this->resolved[] = $d->dataKey();
+
             $result = ($d->resolver())();
-            $then($key, $result);
+            $then($d->dataKey(), $result, $this->resolved);
         }
 
         return $this;
+    }
+
+    public function resolved(): array
+    {
+        return $this->resolved;
     }
 
     public function await(): self

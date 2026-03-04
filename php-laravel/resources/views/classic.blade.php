@@ -11,7 +11,7 @@
     <body>
         @include('fragments.header')
         @include('fragments.title', ['data' => $data['movie']])
-        @include('fragments.details', ['data' => $data['movieDetails']])
-        @include('fragments.similar', ['data' => $data['movieSimilar'], "baseUrl" => $baseUrl])
+        @include('fragments.details', ['data' => $data['details']])
+        @include('fragments.similar', ['data' => $data['similar'], "baseUrl" => $baseUrl])
     </body>
 </html>

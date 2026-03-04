@@ -14,21 +14,34 @@ final class DeferredRegistry
         $this->items = [];
     }
 
-    public function add(string $key, string $dataKey, string $view): void
+    public function add(string $key, array $dataKeys, string $view): void
     {
         $this->items[$key] = [
             'key' => $key,
-            'dataKey' => $dataKey,
+            'dataKeys' => $dataKeys,
             'view'  => $view,
         ];
     }
 
+    public function remove(string $key): void
+    {
+        unset($this->items[$key]);
+    }
+
     public function entriesForDataKey(string $dataKey)
     {
-        $entries = array_filter(
-            $this->items, 
-            fn (array $item) => $item['dataKey'] === $dataKey
-        );
+        $entries = [];
+        foreach ($this->items as $key => $item) {
+            $item['dataKeys'] = array_filter(
+                $item['dataKeys'], 
+                fn ($k) => $k !== $dataKey
+            );
+
+            if (empty($item['dataKeys'])) {
+                $entries[] = $item;
+                $this->remove($key);
+            }
+        }
 
         return $entries;
     }

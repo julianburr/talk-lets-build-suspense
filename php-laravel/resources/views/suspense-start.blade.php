@@ -11,9 +11,9 @@
     <body>
         @include('fragments.header')
 
-        <x-suspense dataKey="movie" view="fragments.title" fallback="fragments.skeleton.title"></x-suspense>
-        <x-suspense dataKey="movieDetails" view="fragments.details" fallback="fragments.skeleton.details"></x-suspense>
-        <x-suspense dataKey="movieSimilar" view="fragments.similar" fallback="fragments.skeleton.similar"></x-suspense>
+        <x-suspense :values="[$data['movie']]" view="fragments.title" fallback="fragments.skeleton.title"></x-suspense>
+        <x-suspense :values="[$data['details']]" view="fragments.details" fallback="fragments.skeleton.details"></x-suspense>
+        <x-suspense :values="[$data['similar']]" view="fragments.similar" fallback="fragments.skeleton.similar"></x-suspense>
         
         <script>
           window.customElements.define('suspense-content',
