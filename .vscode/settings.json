@@ -1,9 +1,0 @@
-{
-  "workbench.statusBar.visible": false,
-  "gitlens.currentLine.enabled": false,
-  "editor.hover.enabled": false,
-  "git.enabled": false,
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
-}

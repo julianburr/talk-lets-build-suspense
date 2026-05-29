@@ -31,11 +31,15 @@ final class Suspense
      */
     public function resolve(array $deferred, callable $then): self
     {
-        foreach ($deferred as $key => $d) {
-            $this->resolved[] = $d->dataKey();
+        $keys = array_keys($deferred);
+        shuffle($keys);
+        
+        foreach ($keys as $key) {
 
-            $result = ($d->resolver())();
-            $then($d->dataKey(), $result, $this->resolved);
+            $this->resolved[] = $deferred[$key]->dataKey();
+
+            $result = ($deferred[$key]->resolver())();
+            $then($deferred[$key]->dataKey(), $result, $this->resolved);
         }
 
         return $this;

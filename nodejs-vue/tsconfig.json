@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "module": "nodenext",
+    "jsx": "react-jsx",
+    "esModuleInterop": true,
+    "moduleResolution": "nodenext",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "allowJs": true,
+    "allowImportingTsExtensions": true,
+    "paths": {
+      "@vue/runtime-core": [
+        "./node_modules/.pnpm/node_modules/@vue/runtime-core/dist/runtime-core.d.ts"
+      ],
+      "@vue/runtime-dom": [
+        "./node_modules/.pnpm/node_modules/@vue/runtime-dom/dist/runtime-dom.d.ts"
+      ]
+    },
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "strict": true,
+    "noEmit": true
+  },
+  "include": ["**/*.ts", "**/*.tsx", "**/*.d.ts"],
+  "exclude": ["**/node_modules"]
+}

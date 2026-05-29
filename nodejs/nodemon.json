@@ -1,5 +1,0 @@
-{
-  "watch": ["src"],
-  "ext": "ts,tsx,json",
-  "exec": "node --loader ts-node/esm ./src/index.tsx"
-}

@@ -1,0 +1,79 @@
+/** @jsxImportSource vue */
+
+import { Request, Response } from "express";
+
+import { Header } from "../components/Header.tsx";
+import { Title, TitleSkeleton } from "../components/Title.tsx";
+import { Details, DetailsSkeleton } from "../components/Details.tsx";
+import { Similar, SimilarSkeleton } from "../components/Similar.tsx";
+import { Suspense, suspended } from "../components/Suspense.tsx";
+import { renderToString } from "@vue/server-renderer";
+import { VNode } from "vue";
+
+export async function handleSuspense(req: Request, res: Response) {
+  const id = req.params.id as string;
+  const app = (
+    <>
+      <Header />
+      <Suspense fallback={<TitleSkeleton />}>
+        <Title id={id} />
+      </Suspense>
+      <Suspense fallback={<DetailsSkeleton />}>
+        <Details id={id} />
+      </Suspense>
+      <Suspense fallback={<SimilarSkeleton />}>
+        <Similar id={id} />
+      </Suspense>
+    </>
+  );
+
+  res.setHeader("Content-Type", "text/html");
+  res.write(
+    `<!doctype html><html><head><meta charset="UTF-8"><link href="/index.css" rel="stylesheet"><link rel="icon" type="image/png" href="/favicon.png"></head><body>`,
+  );
+
+  const children = Array.isArray(app?.children)
+    ? app?.children
+    : [app?.children];
+  for (let child of children) {
+    const content = await renderToString(child as VNode);
+    res.write(content);
+  }
+
+  if (Object.keys(suspended).length) {
+    res.write(`
+      <script>
+        window.customElements.define('suspense-content', class SuspenseContent extends HTMLElement {
+          connectedCallback () {
+            const content = this.previousElementSibling.content;
+            const id = this.getAttribute('target-id');
+            const target = document.querySelector('[data-suspense-id="' + id + '"]');
+            target.innerHTML = '';
+            while (content.firstChild) {
+              target.appendChild(content.firstChild);
+            }
+          }
+        })
+      </script>
+    `);
+
+    await Promise.all(
+      Object.entries(suspended).map(async ([key, content]: [any, any]) => {
+        const children = Array.isArray(content) ? content : [content];
+        const contents = await Promise.all(
+          children.map(async (child: VNode) => {
+            return renderToString(child);
+          }),
+        );
+        res.write(`
+          <template>${contents.join("")}</template>
+          <suspense-content target-id="${key}"></suspense-content>
+        `);
+        delete suspended[key];
+      }),
+    );
+  }
+
+  res.write(`</body></html>`);
+  res.end();
+}

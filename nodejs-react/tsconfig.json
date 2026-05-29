@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "module": "nodenext",
+    "jsx": "react-jsx",
+    "esModuleInterop": true,
+    "moduleResolution": "nodenext",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "allowJs": true,
+    "allowImportingTsExtensions": true,
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "downlevelIteration": true,
+    "incremental": true
+  },
+  "include": ["**/*.ts", "**/*.tsx", "**/*.d.ts"],
+  "exclude": ["**/node_modules"]
+}
