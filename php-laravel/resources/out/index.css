@@ -317,9 +317,6 @@
   .font-brand {
     font-family: var(--font-brand);
   }
-  .font-sans {
-    font-family: var(--font-sans);
-  }
   .text-sm {
     font-size: var(--text-sm);
     line-height: var(--tw-leading, var(--text-sm--line-height));
@@ -327,10 +324,6 @@
   .text-xs {
     font-size: var(--text-xs);
     line-height: var(--tw-leading, var(--text-xs--line-height));
-  }
-  .antialiased {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
   }
   .opacity-50 {
     opacity: 50%;

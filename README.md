@@ -4,6 +4,7 @@ These are the code examples from my talk "Let's Build Suspense 🥁".
 
 - [NodeJS version (w/ React)](./nodejs-react/)
 - [NodeJS version (w/ Vue)](./nodejs-vue/)
+- [PHP version (w/ Laravel)](./php-laravel/)
 
 ## Good further resources
 
